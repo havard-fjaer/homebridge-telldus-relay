@@ -17,14 +17,19 @@ function start() {
     instance.on('lost', abort);
 
     function createServer() {
-        var server = http.createServer();
+        var server = http.createServer(function(req, res) {
+            res.writeHead(200, { 'Content-Type': 'text/plain' });
+            res.end('okay');
+        });
 
         process.on('SIGTERM', shutdown);
         instance
             .removeListener('lost', abort)
             .on('lost', shutdown);
 
-        server.listen(config.port, onListen);
+        server.listen(443, onListen);
+
+
 
 
         amqp.connect(process.env.CLOUDAMQP_URL, function(err, conn) {
