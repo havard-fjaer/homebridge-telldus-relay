@@ -8,19 +8,9 @@ app.set('port', (process.env.PORT || 5000));
 
 
 app.get('/', function(request, response) {
+    console.log("test log");
     response.write('test');
     response.end();
-
-    amqp.connect(process.env.CLOUDAMQP_URL, function(err, conn) {
-        conn.createChannel(function(err, ch) {
-            var q = 'hello';
-
-            ch.assertQueue(q, { durable: false });
-            // Note: on Node 6 Buffer.from(msg) should be used
-            ch.sendToQueue(q, new Buffer('Hello World!'));
-            console.log(" [x] Sent 'Hello World!'");
-        });
-    });
 
 });
 
