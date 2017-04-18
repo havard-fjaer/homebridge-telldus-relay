@@ -7,7 +7,7 @@ var http = require('http');
 http.globalAgent.maxSockets = Infinity;
 
 function start() {
-    logger.log({
+    console.log({
         type: 'info',
         msg: 'starting server'
     });
@@ -45,20 +45,20 @@ function start() {
     }
 
     function onListen() {
-        logger.log({ type: 'info', msg: 'listening', port: server.address().port });
+        console.log({ type: 'info', msg: 'listening', port: server.address().port });
     }
 
     function shutdown() {
-        logger.log({ type: 'info', msg: 'shutting down' });
+        console.log({ type: 'info', msg: 'shutting down' });
         server.close(function() {
-            logger.log({ type: 'info', msg: 'exiting' });
+            console.log({ type: 'info', msg: 'exiting' });
             process.exit();
         });
     }
 
 
     function abort() {
-        logger.log({ type: 'info', msg: 'shutting down', abort: true });
+        console.log({ type: 'info', msg: 'shutting down', abort: true });
         process.exit();
     }
 
