@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 
 var jackrabbit = require('jackrabbit');
-var rabbit = jackrabbit(process.env.RABBIT_URL);
+var rabbit = jackrabbit(process.env.RABBITMQ_BIGWIG_TX_URL);
 app.set('port', (process.env.PORT || 5000));
 
 app.get('/', function(request, response) {
@@ -11,8 +11,8 @@ app.get('/', function(request, response) {
     response.end();
     rabbit
         .default()
-        .publish('Hello World!', { key: 'hello' })
-        .on('drain', rabbit.close);
+        .publish('Hello World!' + Math.random(), { key: 'hello' });
+    //.on('drain', rabbit.close);
 });
 
 app.listen(app.get('port'), function() {
