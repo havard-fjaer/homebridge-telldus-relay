@@ -1,0 +1,34 @@
+{
+    "name": "homebridge-telldus-relay",
+    "version": "0.0.1",
+    "description": "A service for relaying events in Telldus to HomeBridge",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "amqplib": "^0.5.1",
+        "http-server": "^0.9.0",
+        "logfmt": "^1.2.0"
+
+    },
+    "engines": {
+        "node": "4.0.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/havard-fjaer/homebridge-telldus-relay"
+    },
+    "keywords": [
+        "node",
+        "heroku",
+        "telldus",
+        "homekit",
+        "homebridge"
+    ],
+    "author": "Mark Pundsack",
+    "contributors": [
+        "Håvard Fjær <github@fjaer.com> (http://www.fjær.no)"
+    ],
+    "license": "MIT"
+}
