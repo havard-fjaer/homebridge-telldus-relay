@@ -1,20 +1,15 @@
 var express = require('express');
 var app = express();
+var redis = require('redis');
+var publisher = redis.createClient(process.env.REDIS_URL);
 
-var jackrabbit = require('jackrabbit');
-var rabbit = jackrabbit(process.env.RABBITMQ_BIGWIG_TX_URL);
-app.set('port', (process.env.PORT || 5000));
+app.set('port', (process.env.PORT));
 
-app.get('/', function(request, response) {
-    console.log("test log");
-    response.write('test');
-    response.end();
-    rabbit
-        .default()
-        .publish('Hello World!' + Math.random(), { key: 'hello' });
-    //.on('drain', rabbit.close);
+app.get('/sensor/:sensor/action/:action', function(req, res) {
+    publisher.publish("sensor:" + req.params['sensor'], req.params['action']);
+    res.send(req.params)
 });
 
 app.listen(app.get('port'), function() {
-    console.log('Node app is running on port', app.get('port'));
+    console.log('HTTP port: ', app.get('port'));
 });
