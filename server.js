@@ -5,8 +5,8 @@ var publisher = redis.createClient(process.env.REDIS_URL);
 
 app.set('port', (process.env.PORT));
 
-app.get('/sensor/:sensor/action/:action', function(req, res) {
-    publisher.publish("sensor:" + req.params['sensor'], req.params['action']);
+app.get('/:sensorType/:sensor/:action', function(req, res) {
+    publisher.publish(req.params['sensorType'] + ":" + req.params['sensor'], req.params['action']);
     res.send(req.params)
 });
 
